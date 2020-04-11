@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 
 // import function for setting up routing
 const addApiRoutes = require("./routes/apiRoutes");
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 3000;
 // (aka sets up req.body)
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "./public"), { extensions: ["html","js","css"] }));
 
 //These functions points the server to a series of routing files
 addApiRoutes(app);
