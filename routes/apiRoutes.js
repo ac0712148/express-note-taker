@@ -1,6 +1,5 @@
 // We are linking our routes to our data source
 const dbData = require("../db/db");
-
 // We are using fs module to retrive and store notes
 const fs = require("fs");
 
@@ -48,6 +47,17 @@ module.exports = (app) => {
         return res.sendStatus(404);
       }
       dbData.splice(noteIndex, 1);
+      // Write file
+      fs.writeFile("./db/db.json", JSON.stringify(dbData), function(error) {
+        // if an error occurs, log it
+        if (error) {
+          // stop execution if there is
+          console.log(error)
+          return console.log(error);
+        }
+        // finished writing to file
+        console.log("Success, Element has been added...");
+      });
       return res.sendStatus(200);
     });
 };
